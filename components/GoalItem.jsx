@@ -1,24 +1,50 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button, Pressable } from 'react-native';
+import { useState } from 'react';
 
-export default function GoalItem() {
+export default function GoalItem({ value, onDeleteItem, id }) {
+  const [goalCompleted, setGoalCompleted] = useState(false);
+
   return (
-    <View style={styles.goalContent}>
-      <Text style={styles.goalItem}>Goal 1</Text>
-      <Text style={styles.goalItem}>Goal 2</Text>
-      <Text style={styles.goalItem}>Goal 3</Text>
-      <Text style={styles.goalItem}>Goal 4</Text>
-      <Text style={styles.goalItem}>Goal 5</Text>
-    </View>
+    <Pressable onPress={!goalCompleted ? onDeleteItem.bind(this, id) : null}>
+      <View style={styles.wrapper}>
+        <Button
+          title='✔'
+          color={goalCompleted ? '#C1F4C5' : '#019267'}
+          onPress={() => setGoalCompleted(!goalCompleted)}
+        />
+        <Text style={goalCompleted ? styles.goalCompleted : styles.goalItem}>
+          {value}
+        </Text>
+        <Button
+          title='📑'
+          color='#FF1818'
+          onPress={!goalCompleted ? onDeleteItem.bind(this, id) : null}
+        />
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  goalContent: {},
   goalItem: {
-    backgroundColor: '#7027A0',
+    backgroundColor: '#AD8B73',
     padding: 10,
     color: '#fff',
     borderRadius: 5,
-    marginBottom: 10,
+    width: '75%',
+    marginVertical: 10,
+  },
+  goalCompleted: {
+    backgroundColor: '#DFDFDE',
+    padding: 10,
+    color: '#fff',
+    borderRadius: 5,
+    width: '75%',
+    marginVertical: 10,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
