@@ -5,7 +5,9 @@ export default function GoalItem({ value, onDeleteItem, id }) {
   const [goalCompleted, setGoalCompleted] = useState(false);
 
   return (
-    <Pressable onPress={!goalCompleted ? onDeleteItem.bind(this, id) : null}>
+    <Pressable
+      android_ripple={{ color: '#ddd' }}
+      onPress={!goalCompleted ? onDeleteItem.bind(this, id) : null}>
       <View style={styles.wrapper}>
         <Button
           title='✔'
